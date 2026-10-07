@@ -4,9 +4,9 @@
   --yellow: #f6cd50;
   --purple: #7139ad;
   --ink: #f5f0ff;
-  --muted: #b9b1c9;
-  --bg: #101017;
-  --line: #33303e;
+  --muted: #c3cde0;
+  --bg: #1b3154;
+  --line: #435372;
 }
 * {
   box-sizing: border-box;
@@ -14,7 +14,11 @@
 body {
   margin: 0;
   background:
-    radial-gradient(ellipse at 75% 0%, #44275a55, transparent 55%), var(--bg);
+    radial-gradient(ellipse at 85% 5%, #7166ad55, transparent 55%),
+    radial-gradient(ellipse at 5% 60%, #3d80ad40, transparent 60%),
+    linear-gradient(145deg, #294669 0%, #25375d 48%, #1b3154 100%);
+  min-height: 100vh;
+  background-attachment: fixed;
   color-scheme: dark;
   color: var(--ink);
   font-family:
@@ -153,7 +157,7 @@ p {
   margin-left: 28px;
 }
 .secondary {
-  background: #292532;
+  background: #344766;
   color: var(--ink);
   color: var(--ink);
 }
@@ -272,7 +276,7 @@ progress::-moz-progress-bar {
 }
 .choice {
   text-align: left;
-  background: #1d1b27;
+  background: #293d5c;
   color: var(--ink);
   border: 1px solid var(--line);
   padding: 18px;
@@ -322,7 +326,7 @@ fieldset .choice {
   margin-top: 10px;
   border-radius: 12px;
   border: 1px solid var(--purple);
-  background: #1d1b27;
+  background: #293d5c;
   color: var(--ink);
 }
 .slider {
@@ -362,7 +366,7 @@ nav {
 }
 .notice {
   font-size: 12px;
-  background: #292333;
+  background: #304365;
   padding: 12px;
   border-radius: 10px;
 }
@@ -373,7 +377,7 @@ nav {
   margin-top: 30px;
 }
 .book-card {
-  background: #1d1b27;
+  background: #293d5c;
   color: var(--ink);
   border: 1px solid var(--line);
   border-radius: 20px;
@@ -476,7 +480,7 @@ ul {
   flex-wrap: wrap;
 }
 .feedback button {
-  background: #24212d;
+  background: #2b3c5b;
   color: var(--ink);
   border: 1px solid transparent;
   border-radius: 8px;
@@ -493,6 +497,8 @@ ul {
   gap: 14px;
   margin-top: 30px;
   flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
 }
 dialog {
   border: 0;
@@ -513,7 +519,7 @@ dialog::backdrop {
   border: 0;
   border-radius: 50%;
   padding: 10px;
-  background: #292532;
+  background: #344766;
   color: var(--ink);
 }
 .modal-content {
@@ -688,7 +694,7 @@ dd {
   margin-top: 36px;
 }
 .book-card {
-  background: linear-gradient(145deg, #242030, #19171f);
+  background: linear-gradient(145deg, #314566, #243754);
   display: flex;
   flex-direction: column;
   transition:
@@ -702,7 +708,7 @@ dd {
 .featured {
   grid-column: 1/-1;
   background:
-    radial-gradient(ellipse at 90% 10%, #7139ad40, transparent 65%), #201b2b;
+    radial-gradient(ellipse at 90% 10%, #9b71cf35, transparent 65%), #2c3d61;
   border-color: #665078;
 }
 .featured .book-open {
@@ -795,7 +801,7 @@ dd {
   font-size: 17px;
 }
 dialog {
-  background: #1d1926;
+  background: #273957;
   border: 1px solid #61506e;
   box-shadow: 0 30px 100px #0009;
   width: min(950px, 94vw);
