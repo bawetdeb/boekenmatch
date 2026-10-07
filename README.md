@@ -21,9 +21,9 @@ Open de app via je lokale webserver in een gewone ontwikkelomgeving. In de cloud
 - Een neutrale keuze voor moeilijkheid. Realisme, tempo, lengte en uitgesloten onderwerpen worden niet meer uitgevraagd; het leerlingprofiel gebruikt daarvoor neutrale waarden.
 - Schermanimaties respecteren verminderde beweging. De engine blijft onderwerpfilters ondersteunen voor een toekomstige databron, maar de leerling kiest deze niet meer.
 - Een persoonlijke top 5 met percentages, maximaal drie redenen, tags, covers en rangnummer; de eerste kaart is groter op ruime schermen.
-- Samenvattingen van 40–70 woorden bij hover/toetsenbordfocus en in een detailmodal. De modal sluit met Escape, de sluitknop of een klik buiten de inhoud.
+- Samenvattingen van 40–70 woorden uitsluitend na klikken in een detailmodal, met een apart blok “Waarom dit boek bij jou past”. De modal sluit met Escape, de sluitknop of een klik buiten de inhoud.
 - Directe lokale feedback en vijf andere suggesties; eerst ongeziene, niet-afgewezen boeken, herhaling alleen als onvoldoende alternatieven overblijven.
-- Responsive ontwerp voor laptop, Chromebook, tablet en mobiel; zichtbare focus, labels, voortgang en native dialog.
+- Donker, modern ontwerp met één grote hoofdmatch en vier compacte boekkaarten. Responsive ontwerp voor laptop, Chromebook, tablet en mobiel; zichtbare focus, labels, voortgang en native dialog.
 - 98 verschillende boektitels. Dit is een redactionele testcollectie: paginatallen, leeskenmerken, thema's, leeftijdsgrenzen, locatie en beschikbaarheid zijn illustratief. Gevoelige onderwerpen zijn geen gecontroleerde volledige inhoudsclassificatie. Valideer dit bij een echte catalogusimport. Er zijn nog geen geverifieerde ISBN's of Aura-records ingevuld.
 
 ## Bestanden en verantwoordelijkheden

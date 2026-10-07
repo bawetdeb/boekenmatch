@@ -157,15 +157,15 @@
       current.forEach((b) => state.shown.add(b.id));
     }
     frame(
-      `<main class="results"><span class="eyebrow">JOUW SMAAK, VERTAALD NAAR VERHALEN</span><h1>Dit is jouw <em>top ${current.length}.</em></h1><p>Een startpunt om iets nieuws te ontdekken. Matchpercentages zijn een schatting op basis van je antwoorden.</p><p class="notice">Fase 1 · ${books.length} testtitels. Niveau, pagina’s en beschikbaarheid zijn illustratief en nog niet gecontroleerd in Aura.</p>${!current.length ? '<p role="status">Geen veilige matches gevonden bij deze uitsluitingen. Pas je antwoorden aan om opnieuw te zoeken.</p>' : ""}<div class="book-grid">${current
+      `<main class="results"><span class="eyebrow">JOUW SMAAK, VERTAALD NAAR VERHALEN</span><h1>${current.length === 5 ? "Vijf verhalen." : current.length ? `${current.length} verhalen.` : "Geen matches."}<br><em>${current.length ? "Helemaal jouw smaak." : "Pas je antwoorden aan."}</em></h1><p>Een startpunt om iets nieuws te ontdekken. Matchpercentages zijn een schatting op basis van je antwoorden.</p><p class="notice">Fase 1 · ${books.length} testtitels. Niveau, pagina’s en beschikbaarheid zijn illustratief en nog niet gecontroleerd in Aura.</p>${!current.length ? '<p role="status">Geen veilige matches gevonden bij deze uitsluitingen. Pas je antwoorden aan om opnieuw te zoeken.</p>' : ""}<div class="book-grid">${current
         .map(
           (b, i) =>
-            `<article class="book-card ${i === 0 ? "featured" : ""}"><button class="book-open" data-book="${b.id}" aria-label="Bekijk ${esc(b.title)}"><div class="cover-wrap"><img data-cover="${b.id}" src="${coverService.fallback(b)}" alt="Omslag ${esc(b.title)}"><span class="rank">${i + 1}</span><div class="hover-summary">${esc(b.teaser || b.summary)}</div></div><div class="book-text"><span class="match">${b.matchScore}% match</span><h2>${esc(b.title)}</h2><p class="author">${esc(b.author)}</p><div class="tags">${b.interests
+            `<article class="book-card ${i === 0 ? "featured" : ""}"><button class="book-open" data-book="${b.id}" aria-label="Bekijk ${esc(b.title)}"><div class="cover-wrap"><img data-cover="${b.id}" src="${coverService.fallback(b)}" alt="Omslag ${esc(b.title)}"><span class="rank">${String(i + 1).padStart(2, "0")}</span></div><div class="book-text">${i === 0 ? '<span class="top-pick">✦ JOUW BESTE MATCH</span>' : ""}<span class="match">${b.matchScore}% match</span><h2>${esc(b.title)}</h2><p class="author">${esc(b.author)}</p><div class="tags">${b.interests
               .slice(0, 3)
               .map((t) => `<span>${esc(t)}</span>`)
               .join(
                 "",
-              )}</div><ul>${b.matchReasons.map((r) => `<li>${esc(r)}</li>`).join("")}</ul><span class="detail-link">Ontdek het verhaal ↗</span></div></button>${feedbackButtons(b)}</article>`,
+              )}</div><ul>${b.matchReasons.map((r) => `<li>${esc(r)}</li>`).join("")}</ul><span class="detail-link">Bekijk jouw match →</span></div></button>${feedbackButtons(b)}</article>`,
         )
         .join(
           "",
@@ -226,7 +226,7 @@
         return null;
       }
     })();
-    d.innerHTML = `<button id="close" class="close" aria-label="Sluiten">✕</button><div class="modal-content"><img src="${esc(document.querySelector(`[data-cover="${b.id}"]`).src)}" alt="Omslag ${esc(b.title)}"><div><span class="match">${b.matchScore}% match</span><h2 id="modal-title">${esc(b.title)}</h2><p>${esc(b.author)}</p><p>${esc(b.summary)}</p><ul>${b.matchReasons.map((r) => `<li>${esc(r)}</li>`).join("")}</ul><dl><dt>Niveau</dt><dd>${b.levels.join(" / ")}</dd><dt>Pagina’s (testwaarde)</dt><dd>${b.pages}</dd><dt>Thema’s</dt><dd>${Object.entries(
+    d.innerHTML = `<button id="close" class="close" aria-label="Sluiten">✕</button><div class="modal-content"><img src="${esc(document.querySelector(`[data-cover="${b.id}"]`).src)}" alt="Omslag ${esc(b.title)}"><div><span class="match">${b.matchScore}% match</span><h2 id="modal-title">${esc(b.title)}</h2><p class="author">${esc(b.author)}</p><section class="match-explanation" aria-labelledby="match-why"><span class="eyebrow">GEMAAKT VOOR JOUW LEESPROFIEL</span><h3 id="match-why">Waarom dit boek bij jou past</h3><ul>${b.matchReasons.map((r) => `<li><span aria-hidden="true">✓</span> ${esc(r)}</li>`).join("")}</ul><p>Gebaseerd op jouw antwoorden · ${b.matchScore}% inhoudelijke overeenkomst</p></section><section class="story-summary"><h3>Waar gaat het over?</h3><p>${esc(b.teaser || b.summary)}</p></section><dl><dt>Niveau</dt><dd>${b.levels.join(" / ")}</dd><dt>Pagina’s (testwaarde)</dt><dd>${b.pages}</dd><dt>Thema’s</dt><dd>${Object.entries(
       b.themes,
     )
       .filter(([, v]) => v >= 3)

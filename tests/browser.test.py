@@ -48,8 +48,15 @@ with sync_playwright() as p:
     page.locator('#next').click()
     assert page.locator('.book-card').count() == 5
     first = page.locator('[data-book]').evaluate_all('(els)=>els.map(x=>x.dataset.book)')
+    page.locator('[data-book]').first.hover()
+    assert page.locator('.hover-summary').count() == 0
+    assert not page.locator('dialog').is_visible()
     page.locator('[data-book]').first.click()
     assert page.locator('dialog').is_visible()
+    assert page.locator('.match-explanation').is_visible()
+    assert 'Waarom dit boek bij jou past' in page.locator('.match-explanation').inner_text()
+    assert page.locator('.match-explanation li').count() > 0
+    assert page.locator('.story-summary').is_visible()
     assert 'Beschikbaarheid' in page.locator('dialog').inner_text()
     page.keyboard.press('Escape')
     assert not page.locator('dialog').is_visible()
