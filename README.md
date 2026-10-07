@@ -15,11 +15,11 @@ Open de app via je lokale webserver in een gewone ontwikkelomgeving. In de cloud
 
 ## Wat is gebouwd?
 
-- Twaalf modulaire vragen: niveau, leerjaar, motivatie, leesvaardigheid, moeilijkheid, interesses, verhaalvoorkeuren, zes intensiteitssliders, realisme/fantasie, tempo, omvang en uitgesloten onderwerpen.
+- Acht modulaire vragen: niveau, leerjaar (1–4), motivatie, leesvaardigheid, moeilijkheid, interesses, verhaalvoorkeuren en zes intensiteitssliders.
 - Alle gevraagde interessecategorieën, maximaal zes interesses en een verplichte primaire interesse die dubbel meetelt.
 - Negentien verhaalvoorkeuren (maximaal vijf), inclusief waargebeurd, psychologie/diepgang, feelgood, donker, sciencefiction en technologie.
-- Expliciete neutrale keuzes voor moeilijkheid, realisme, tempo en lengte; die kenmerken worden dan niet als voorkeur meegewogen.
-- Uitsluitingen voor onder meer seks, racisme en dierenleed; schermanimaties respecteren verminderde beweging.
+- Een neutrale keuze voor moeilijkheid. Realisme, tempo, lengte en uitgesloten onderwerpen worden niet meer uitgevraagd; het leerlingprofiel gebruikt daarvoor neutrale waarden.
+- Schermanimaties respecteren verminderde beweging. De engine blijft onderwerpfilters ondersteunen voor een toekomstige databron, maar de leerling kiest deze niet meer.
 - Een persoonlijke top 5 met percentages, maximaal drie redenen, tags, covers en rangnummer; de eerste kaart is groter op ruime schermen.
 - Samenvattingen van 40–70 woorden bij hover/toetsenbordfocus en in een detailmodal. De modal sluit met Escape, de sluitknop of een klik buiten de inhoud.
 - Directe lokale feedback en vijf andere suggesties; eerst ongeziene, niet-afgewezen boeken, herhaling alleen als onvoldoende alternatieven overblijven.
@@ -85,7 +85,7 @@ python tests/browser.test.py
 
 De browsertest vereist het Python-pakket Playwright en Chromium op `/usr/bin/chromium` (aanwezig in deze cloudomgeving). Voor een andere installatie kun je dat pad aanpassen. Externe coververzoeken worden in deze test bewust geweigerd om te controleren dat de app bruikbaar blijft zonder deze diensten.
 
-Gevalideerd: 20 logische tests geslaagd, plus een volledige browserdoorloop zonder JavaScript-fouten. De vijf voorgeschreven profielen geven verschillende top-5's. De browsercontrole test interessevalidatie, keuzelimieten, neutrale keuzes, sliders, terugnavigatie, twaalf stappen, vijf kaarten, modal en Escape, feedback, nieuwe titels, sessieherstel en geen horizontale overflow bij 390, 768 en 1280 pixels. Verminderde beweging is eveneens getest.
+Gevalideerd: 20 logische tests geslaagd, plus een volledige browserdoorloop zonder JavaScript-fouten. De vijf voorgeschreven profielen geven verschillende top-5's. De browsercontrole test interessevalidatie, keuzelimieten, neutrale keuzes, sliders, terugnavigatie, acht stappen, vijf kaarten, modal en Escape, feedback, nieuwe titels, sessieherstel en geen horizontale overflow bij 390, 768 en 1280 pixels. Verminderde beweging is eveneens getest.
 
 ## Voorbereiding op Aura
 

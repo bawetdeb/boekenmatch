@@ -9,9 +9,14 @@ with sync_playwright() as p:
     page.goto('http://127.0.0.1:8000')
     page.locator('#start').click()
     total = page.evaluate('quizConfig.questions.length')
-    assert total == 12
+    assert total == 8
     for index in range(5):
         assert page.locator('progress').get_attribute('value') == str(index+1)
+        if index == 1:
+            for year in [1,2,3,4]:
+                page.locator(f'[data-value="{year}"]').click()
+                assert page.evaluate('appState.profile.schoolYear') == year
+            page.locator('[data-value="1"]').click()
         page.locator('#next').click()
     page.locator('#next').click()
     assert 'Kies minstens' in page.locator('#validation').inner_text()
@@ -35,17 +40,13 @@ with sync_playwright() as p:
     page.locator('#next').click()
     page.locator('[data-theme="spanning"]').fill('5')
     assert page.locator('#out-spanning').inner_text() == '5'
-    page.locator('#next').click()
+    assert page.locator('progress').get_attribute('value') == '8'
+    assert 'Ontdek mijn top 5' in page.locator('#next').inner_text()
     for key in ['realismFantasy', 'readingSpeed', 'maxPages']:
-        page.locator('[data-value="any"]').click()
         assert page.evaluate(f'appState.profile.{key}') is None
-        page.locator('#next').click()
-    assert page.locator('progress').get_attribute('value') == '12'
-    page.locator('[data-value="dierenleed"]').click()
-    page.locator('[data-value="racisme"]').click()
+    assert page.evaluate('appState.profile.avoidTopics') == []
     page.locator('#next').click()
     assert page.locator('.book-card').count() == 5
-    assert page.evaluate('appState.profile.avoidTopics') == ['dierenleed','racisme']
     first = page.locator('[data-book]').evaluate_all('(els)=>els.map(x=>x.dataset.book)')
     page.locator('[data-book]').first.click()
     assert page.locator('dialog').is_visible()
@@ -73,5 +74,5 @@ with sync_playwright() as p:
     page.reload()
     assert page.evaluate('Object.keys(appState.feedback).length') == 1
     assert not errors, errors
-    print('PASS: 12 steps, progress/back, 6-interest and 5-theme limits, neutral choices, sliders, sensitive topics, modal, feedback, unseen alternatives, responsive sizes, reduced motion, session reload; no JavaScript errors')
+    print('PASS: 8 steps, school years 1–4, progress/back, 6-interest and 5-theme limits, neutral choices, sliders, removed preferences neutral, modal, feedback, unseen alternatives, responsive sizes, reduced motion, session reload; no JavaScript errors')
     browser.close()

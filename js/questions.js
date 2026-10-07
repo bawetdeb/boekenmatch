@@ -73,6 +73,8 @@
       key: "schoolYear",
       title: "In welk leerjaar zit je?",
       options: [
+        [1, "Leerjaar 1"],
+        [2, "Leerjaar 2"],
         [3, "Leerjaar 3"],
         [4, "Leerjaar 4"],
       ],
@@ -125,53 +127,6 @@
       hint: "0 = liever niet · 5 = heel veel. Lage scores tellen ook mee.",
       type: "sliders",
     },
-    {
-      key: "realismFantasy",
-      title: "Echt gebeurd of een andere wereld?",
-      options: [
-        [1, "Helemaal realistisch"],
-        [2, "Meestal realistisch"],
-        [3, "Een beetje van allebei"],
-        [4, "Veel fantasie"],
-        [5, "Een compleet andere wereld"],
-      ],
-    },
-    {
-      key: "readingSpeed",
-      title: "Welk tempo vind je fijn?",
-      options: [
-        [5, "Snel: er moet veel gebeuren"],
-        [3, "Een fijne afwisseling"],
-        [1, "Rustig: tijd voor details"],
-      ],
-    },
-    {
-      key: "maxPages",
-      title: "Hoe dik mag jouw boek zijn?",
-      hint: "Een zachte voorkeur: een iets langer boek kan toch goed bij je passen.",
-      options: [
-        [160, "Dun · tot ongeveer 160 pagina’s"],
-        [250, "Gemiddeld · ongeveer 250 pagina’s"],
-        [400, "Dik · ongeveer 400 pagina’s"],
-        [1000, "Maakt mij niet uit"],
-      ],
-    },
-    {
-      key: "avoidTopics",
-      title: "Wat wil je liever niet lezen?",
-      hint: "Boeken met deze onderwerpen sluiten we uit. Kies niets als alles mag.",
-      type: "multi",
-      options: [
-        "geweld",
-        "oorlog",
-        "dood",
-        "pesten",
-        "zelfdoding",
-        "drugs",
-        "huiselijk geweld",
-        "ziekte",
-      ].map((x) => [x, x]),
-    },
   ];
 
   groups.Sport.push("andere sport");
@@ -215,28 +170,5 @@
     ["donker", "🌑 Donker"],
     ["feelgood", "🌈 Feelgood"],
   ];
-  byKey("realismFantasy").title = "De echte wereld of een andere wereld?";
-  byKey("realismFantasy").options = [
-    [1, "🌍 Helemaal de echte wereld"],
-    [2, "🏙️ Vooral realistisch"],
-    ["any", "Maakt mij niet uit"],
-    [4, "✨ Een beetje fantasie mag"],
-    [5, "🐉 Een totaal andere wereld"],
-  ];
-  byKey("readingSpeed").options = [
-    [5, "⚡ Meteen actie"],
-    [2, "🌿 Het mag rustig beginnen"],
-    ["any", "Maakt mij niet uit"],
-  ];
-  byKey("maxPages").options = [
-    [150, "Liefst dun · ongeveer 150 pagina’s"],
-    [200, "Niet te dik · ongeveer 200 pagina’s"],
-    [300, "Gemiddeld · ongeveer 300 pagina’s"],
-    [450, "Dik is prima"],
-    ["any", "Maakt mij niet uit"],
-  ];
-  byKey("avoidTopics").options.push(
-    ...["seks", "racisme", "dierenleed"].map((x) => [x, x]),
-  );
   window.quizConfig = { groups, questions };
 })();
