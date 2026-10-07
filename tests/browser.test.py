@@ -47,6 +47,8 @@ with sync_playwright() as p:
     assert page.evaluate('appState.profile.avoidTopics') == []
     page.locator('#next').click()
     assert page.locator('.book-card').count() == 5
+    assert page.evaluate('bookRepository.status.source') == 'aura'
+    assert 'bevestigde titels' in page.locator('.notice').inner_text()
     first = page.locator('[data-book]').evaluate_all('(els)=>els.map(x=>x.dataset.book)')
     page.locator('[data-book]').first.hover()
     assert page.locator('.hover-summary').count() == 0
@@ -58,6 +60,8 @@ with sync_playwright() as p:
     assert page.locator('.match-explanation li').count() > 0
     assert page.locator('.story-summary').is_visible()
     assert 'Beschikbaarheid' in page.locator('dialog').inner_text()
+    assert 'laatste controle' in page.locator('dialog').inner_text()
+    assert page.locator('dialog a').get_attribute('href').startswith('https://bogerman.auralibrary.nl/')
     page.keyboard.press('Escape')
     assert not page.locator('dialog').is_visible()
     page.locator('[data-feedback="1"]').first.click()

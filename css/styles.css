@@ -3,10 +3,10 @@
   --orange: #ff8b49;
   --yellow: #f6cd50;
   --purple: #7139ad;
-  --ink: #f5f0ff;
-  --muted: #c3cde0;
-  --bg: #1b3154;
-  --line: #435372;
+  --ink: #25334c;
+  --muted: #58677d;
+  --bg: #ffffff;
+  --line: #dbe3ee;
 }
 * {
   box-sizing: border-box;
@@ -14,12 +14,12 @@
 body {
   margin: 0;
   background:
-    radial-gradient(ellipse at 85% 5%, #7166ad55, transparent 55%),
-    radial-gradient(ellipse at 5% 60%, #3d80ad40, transparent 60%),
-    linear-gradient(145deg, #294669 0%, #25375d 48%, #1b3154 100%);
+    radial-gradient(ellipse at 85% 5%, #d9e7fb70, transparent 55%),
+    radial-gradient(ellipse at 5% 60%, #eee4fa60, transparent 60%),
+    linear-gradient(145deg, #ffffff 0%, #fafcff 48%, #f1f6ff 100%);
   min-height: 100vh;
   background-attachment: fixed;
-  color-scheme: dark;
+  color-scheme: light;
   color: var(--ink);
   font-family:
     system-ui,
@@ -102,7 +102,7 @@ header a {
   font-size: 9px;
   padding: 5px 7px;
   border-radius: 5px;
-  background: #30243f;
+  background: #eee6f7;
   margin-left: 10px;
   letter-spacing: 0.08em;
 }
@@ -117,7 +117,7 @@ header a {
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.16em;
-  color: #c4a3ee;
+  color: #74429b;
 }
 h1 {
   font-size: clamp(38px, 5.7vw, 74px);
@@ -127,7 +127,7 @@ h1 {
 }
 h1 em {
   font-style: normal;
-  color: #c4a3ee;
+  color: #74429b;
 }
 p {
   line-height: 1.65;
@@ -157,7 +157,7 @@ p {
   margin-left: 28px;
 }
 .secondary {
-  background: #344766;
+  background: #eaf0f8;
   color: var(--ink);
   color: var(--ink);
 }
@@ -214,7 +214,7 @@ p {
   border-top: 1px solid var(--line);
   padding: 30px 0;
   gap: 20px;
-  color: #c4a3ee;
+  color: #74429b;
   font-size: 12px;
 }
 .intro strong {
@@ -251,7 +251,7 @@ progress {
   margin: 15px 0 45px;
 }
 progress::-webkit-progress-bar {
-  background: #302939;
+  background: #e5eaf3;
   border-radius: 10px;
 }
 progress::-webkit-progress-value {
@@ -276,7 +276,7 @@ progress::-moz-progress-bar {
 }
 .choice {
   text-align: left;
-  background: #293d5c;
+  background: #ffffff;
   color: var(--ink);
   border: 1px solid var(--line);
   padding: 18px;
@@ -288,16 +288,16 @@ progress::-moz-progress-bar {
   min-height: 58px;
 }
 .choice:hover {
-  border-color: #c4a3ee;
+  border-color: #74429b;
 }
 .choice.selected {
-  border-color: #c4a3ee;
-  background: #3a2654;
-  color: #ddbeff;
+  border-color: #74429b;
+  background: #eee5fb;
+  color: #61348c;
   font-weight: 700;
 }
 .choice span {
-  color: #c4a3ee;
+  color: #74429b;
 }
 fieldset {
   padding: 0;
@@ -326,7 +326,7 @@ fieldset .choice {
   margin-top: 10px;
   border-radius: 12px;
   border: 1px solid var(--purple);
-  background: #293d5c;
+  background: #ffffff;
   color: var(--ink);
 }
 .slider {
@@ -346,7 +346,7 @@ fieldset .choice {
 .slider input {
   grid-column: 1/-1;
   width: 100%;
-  accent-color: #c4a3ee;
+  accent-color: #74429b;
   height: 25px;
 }
 nav {
@@ -356,7 +356,7 @@ nav {
   margin-top: 32px;
 }
 #validation {
-  color: #ff9baf;
+  color: #ad2848;
 }
 .results {
   padding: 55px 0;
@@ -366,7 +366,7 @@ nav {
 }
 .notice {
   font-size: 12px;
-  background: #304365;
+  background: #f0f4fa;
   padding: 12px;
   border-radius: 10px;
 }
@@ -377,7 +377,7 @@ nav {
   margin-top: 30px;
 }
 .book-card {
-  background: #293d5c;
+  background: #ffffff;
   color: var(--ink);
   border: 1px solid var(--line);
   border-radius: 20px;
@@ -433,8 +433,8 @@ nav {
   padding-top: 20px;
 }
 .match {
-  color: #ddbeff;
-  background: #352547;
+  color: #61348c;
+  background: #eee5f8;
   border-radius: 20px;
   padding: 6px 10px;
   font-size: 12px;
@@ -457,7 +457,7 @@ h2 {
 }
 .tags span {
   font-size: 10px;
-  background: #2c2737;
+  background: #edf2f8;
   border-radius: 5px;
   padding: 5px 7px;
 }
@@ -469,7 +469,7 @@ ul {
 }
 .detail-link {
   font-size: 12px;
-  color: #c4a3ee;
+  color: #74429b;
   font-weight: 700;
 }
 .feedback {
@@ -480,7 +480,7 @@ ul {
   flex-wrap: wrap;
 }
 .feedback button {
-  background: #2b3c5b;
+  background: #f3f6fb;
   color: var(--ink);
   border: 1px solid transparent;
   border-radius: 8px;
@@ -489,8 +489,8 @@ ul {
   flex: 1;
 }
 .feedback button[aria-pressed="true"] {
-  border-color: #c4a3ee;
-  background: #44305e;
+  border-color: #74429b;
+  background: #e7d9f5;
 }
 .result-actions {
   display: flex;
@@ -509,7 +509,7 @@ dialog {
   color: var(--ink);
 }
 dialog::backdrop {
-  background: #251832bb;
+  background: #25334c80;
   backdrop-filter: blur(5px);
 }
 .close {
@@ -519,7 +519,7 @@ dialog::backdrop {
   border: 0;
   border-radius: 50%;
   padding: 10px;
-  background: #344766;
+  background: #eaf0f8;
   color: var(--ink);
 }
 .modal-content {
@@ -675,7 +675,7 @@ dd {
   }
 }
 
-/* Dark collection: a lead recommendation followed by four compact cards. */
+/* Light collection: a lead recommendation followed by four compact cards. */
 .results {
   max-width: 1080px;
   margin: auto;
@@ -694,7 +694,7 @@ dd {
   margin-top: 36px;
 }
 .book-card {
-  background: linear-gradient(145deg, #314566, #243754);
+  background: linear-gradient(145deg, #ffffff, #f4f8ff);
   display: flex;
   flex-direction: column;
   transition:
@@ -702,14 +702,14 @@ dd {
     transform 0.18s;
 }
 .book-card:hover {
-  border-color: #9470b9;
+  border-color: #b293d0;
   transform: translateY(-3px);
 }
 .featured {
   grid-column: 1/-1;
   background:
-    radial-gradient(ellipse at 90% 10%, #9b71cf35, transparent 65%), #2c3d61;
-  border-color: #665078;
+    radial-gradient(ellipse at 90% 10%, #c0a3e530, transparent 65%), #ffffff;
+  border-color: #c5b7db;
 }
 .featured .book-open {
   grid-template-columns: 220px 1fr;
@@ -728,7 +728,7 @@ dd {
 }
 .top-pick {
   display: block;
-  color: var(--yellow);
+  color: #886013;
   font-weight: 800;
   letter-spacing: 0.14em;
   font-size: 11px;
@@ -770,8 +770,8 @@ dd {
   flex: 0 1 190px;
 }
 .match-explanation {
-  background: linear-gradient(120deg, #3c2857, #282033);
-  border: 1px solid #755496;
+  background: linear-gradient(120deg, #f0e6fa, #f5f0fc);
+  border: 1px solid #c8b3e1;
   border-radius: 16px;
   padding: 22px;
   margin: 24px 0;
@@ -791,7 +791,7 @@ dd {
   margin: 12px 0;
 }
 .match-explanation li span {
-  color: #d5b5fc;
+  color: #714196;
 }
 .match-explanation p {
   font-size: 12px;
@@ -801,13 +801,13 @@ dd {
   font-size: 17px;
 }
 dialog {
-  background: #273957;
-  border: 1px solid #61506e;
-  box-shadow: 0 30px 100px #0009;
+  background: #ffffff;
+  border: 1px solid #d2c4e2;
+  box-shadow: 0 30px 100px #21324c35;
   width: min(950px, 94vw);
 }
 dialog::backdrop {
-  background: #090710d9;
+  background: #20345588;
 }
 .close {
   color: var(--ink);
@@ -824,7 +824,7 @@ dialog::backdrop {
   padding-top: 20px;
 }
 h1 em {
-  color: #cda5ff;
+  color: #77459c;
 }
 .book-text .match {
   display: inline-block;
@@ -882,4 +882,10 @@ h1 em {
   .results {
     padding-top: 40px;
   }
+}
+
+.catalog-link {
+  font-size: 14px;
+  color: var(--purple);
+  text-underline-offset: 4px;
 }

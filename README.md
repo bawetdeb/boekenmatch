@@ -23,7 +23,7 @@ Open de app via je lokale webserver in een gewone ontwikkelomgeving. In de cloud
 - Een persoonlijke top 5 met percentages, maximaal drie redenen, tags, covers en rangnummer; de eerste kaart is groter op ruime schermen.
 - Samenvattingen van 40–70 woorden uitsluitend na klikken in een detailmodal, met een apart blok “Waarom dit boek bij jou past”. De modal sluit met Escape, de sluitknop of een klik buiten de inhoud.
 - Directe lokale feedback en vijf andere suggesties; eerst ongeziene, niet-afgewezen boeken, herhaling alleen als onvoldoende alternatieven overblijven.
-- Donker, modern ontwerp met één grote hoofdmatch en vier compacte boekkaarten. Responsive ontwerp voor laptop, Chromebook, tablet en mobiel; zichtbare focus, labels, voortgang en native dialog.
+- Licht ontwerp met veel wit en zachte blauwe/paarse gradients met één grote hoofdmatch en vier compacte boekkaarten. Responsive ontwerp voor laptop, Chromebook, tablet en mobiel; zichtbare focus, labels, voortgang en native dialog.
 - 98 verschillende boektitels. Dit is een redactionele testcollectie: paginatallen, leeskenmerken, thema's, leeftijdsgrenzen, locatie en beschikbaarheid zijn illustratief. Gevoelige onderwerpen zijn geen gecontroleerde volledige inhoudsclassificatie. Valideer dit bij een echte catalogusimport. Er zijn nog geen geverifieerde ISBN's of Aura-records ingevuld.
 
 ## Bestanden en verantwoordelijkheden
@@ -85,14 +85,30 @@ python tests/browser.test.py
 
 De browsertest vereist het Python-pakket Playwright en Chromium op `/usr/bin/chromium` (aanwezig in deze cloudomgeving). Voor een andere installatie kun je dat pad aanpassen. Externe coververzoeken worden in deze test bewust geweigerd om te controleren dat de app bruikbaar blijft zonder deze diensten.
 
-Gevalideerd: 20 logische tests geslaagd, plus een volledige browserdoorloop zonder JavaScript-fouten. De vijf voorgeschreven profielen geven verschillende top-5's. De browsercontrole test interessevalidatie, keuzelimieten, neutrale keuzes, sliders, terugnavigatie, acht stappen, vijf kaarten, modal en Escape, feedback, nieuwe titels, sessieherstel en geen horizontale overflow bij 390, 768 en 1280 pixels. Verminderde beweging is eveneens getest.
+Gevalideerd: 24 JavaScript-tests en 5 Python-importtests geslaagd, plus een volledige browserdoorloop zonder JavaScript-fouten. De vijf voorgeschreven profielen geven verschillende top-5's. De browsercontrole test interessevalidatie, keuzelimieten, neutrale keuzes, sliders, terugnavigatie, acht stappen, vijf kaarten, modal en Escape, feedback, nieuwe titels, sessieherstel en geen horizontale overflow bij 390, 768 en 1280 pixels. Verminderde beweging is eveneens getest.
 
-## Voorbereiding op Aura
+## Eerste Aura-koppeling — openbare catalogussnapshot
 
-De UI haalt boeken uitsluitend op via `bookRepository.getBooks()`. Een toekomstige adapter kan de testdata daar vervangen door genormaliseerde Aura-records. Velden `auraId`, `auraUrl`, `location` en `available` staan klaar. De detailknop gebruikt uitsluitend HTTPS-recordlinks op `bogerman.auralibrary.nl` en blijft uitgeschakeld zonder echte recordlink.
+De app gebruikt nu `data/aura-catalog.js`: 17 bevestigde titels uit de Bogerman-catalogus, waarvan er 15 aanwezig waren bij de controle. Dit is een beperkte selectie van de 98 eerder verrijkte testtitels, niet de volledige mediatheek. Een titel wordt alleen opgenomen wanneer titel én auteur exact overeenkomen, het materiaal een Nederlandstalig boek is en er openbare exemplaarinformatie is.
 
-Nog nodig in een aparte fase: toegang en importcontract voor Aura, geverifieerde ISBN's/edities, werkelijke beschikbaarheid en locaties, gevalideerde boekkenmerken en samenvattingen, en harde uitsluiting van boeken zonder Aura-record. Fase 1 maakt geen verzoeken naar Aura en veronderstelt geen voorraad.
+`bookRepository.getBooks()` combineert de bevestigde catalogusrecords met de redactionele leeskenmerken. Onbevestigde testtitels worden niet aanbevolen. ISBN (indien uit de officiële cover herkenbaar), locatie, exemplaarstatus en cover komen uit de catalogus; niveau, pagina-indicatie, themascores en mini-samenvattingen blijven redactionele indicaties. Aura's eigen niveau wordt apart als `catalogLevel` bewaard.
+
+Omdat de openbare HTML geen CORS-toegang biedt voor de GitHub Pages-app, gebeurt het ophalen tijdens een onderhoudsstap, niet bij iedere leerling. Een synchronisatie vervangt de snapshot alleen na een foutloze controle. Er worden geen login-, uitleen- of reserveringsacties uitgevoerd en geen persoonsgegevens opgeslagen.
+
+Vernieuwen vanuit de projectmap:
+
+```bash
+python scripts/sync_aura.py
+node --test tests/*.test.cjs
+python -m unittest discover -s tests -p 'test_aura_sync.py'
+```
+
+De synchronisatie gebruikt Python's standaardbibliotheek en Node, controleert de bekende kandidaten met twee parallelle leesverzoeken en bewaart het controletijdstip. Commit en push de bijgewerkte snapshot om GitHub Pages te verversen. Er is nog geen automatische dagelijkse synchronisatie; de getoonde status is daarom nadrukkelijk die van de laatste controle. Controleer actuele beschikbaarheid altijd in Aura.
+
+Sommige Aura-recordlinks openen zonder de bijbehorende zoeksessie een andere titel. De synchronisatie controleert daarom ook titel en auteur achter iedere directe link met een nieuwe aanvraag. Alleen een correct bevestigde link wordt als “Bekijk in Aura” gebruikt. Bij andere records opent “Open de schoolcatalogus” de algemene catalogus met de instructie daar op titel of auteur te zoeken. De bibliotheeklink staat ook op het startscherm.
+
+Nieuwe bestanden: `scripts/sync_aura.py`, `data/aura-catalog.js`, `tests/repository.test.cjs`, `tests/test_aura_sync.py` en `.gitignore` voor Python-cachebestanden. De bestaande UI, repositorylaag, README en browsercontrole zijn bijgewerkt.
 
 ## Afbakening van de aangeleverde opdracht
 
-Deze implementatie voert Fase 1 uit en behoudt de eerder gebouwde lokale feedback. De echte Aura-provider is Fase 2; uitgebreider feedbackleren is Fase 3; beheerinterface en anonieme analytics zijn Fase 4. Er is geen beheerlogin of externe tracking toegevoegd. De bestaande repositorystructuur is behouden en de vragen staan nu apart om toekomstige wijzigingen eenvoudiger te maken.
+Deze implementatie voert Fase 1 uit en behoudt de eerder gebouwde lokale feedback. Fase 2 heeft nu een eerste openbare snapshotkoppeling; een volledige export/API en automatische synchronisatie blijven vervolgstappen; uitgebreider feedbackleren is Fase 3; beheerinterface en anonieme analytics zijn Fase 4. Er is geen beheerlogin of externe tracking toegevoegd. De bestaande repositorystructuur is behouden en de vragen staan nu apart om toekomstige wijzigingen eenvoudiger te maken.
