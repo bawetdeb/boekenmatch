@@ -143,9 +143,9 @@
   });
   const byKey = (key) => questions.find((q) => q.key === key);
   byKey("readingDifficulty").options.push(["any", "Maakt mij niet uit"]);
-  byKey("interests").maxSelections = 6;
+  byKey("interests").maxSelections = 12;
   byKey("interests").hint =
-    "Kies maximaal 6 interesses en daarna één favoriet. Je favoriet telt dubbel.";
+    "Kies maximaal 12 interesses en daarna één favoriet. Je favoriet telt dubbel.";
   byKey("storyPreferences").maxSelections = 5;
   byKey("storyPreferences").hint =
     "Kies maximaal 5 ingrediënten, of sla deze stap over.";

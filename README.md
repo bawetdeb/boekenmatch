@@ -16,7 +16,7 @@ Open de app via je lokale webserver in een gewone ontwikkelomgeving. In de cloud
 ## Wat is gebouwd?
 
 - Acht modulaire vragen: niveau, leerjaar (1–4), motivatie, leesvaardigheid, moeilijkheid, interesses, verhaalvoorkeuren en zes intensiteitssliders.
-- Alle gevraagde interessecategorieën, maximaal zes interesses en een verplichte primaire interesse die dubbel meetelt.
+- Alle gevraagde interessecategorieën, maximaal twaalf interesses en een verplichte primaire interesse die dubbel meetelt.
 - Negentien verhaalvoorkeuren (maximaal vijf), inclusief waargebeurd, psychologie/diepgang, feelgood, donker, sciencefiction en technologie.
 - Een neutrale keuze voor moeilijkheid. Realisme, tempo, lengte en uitgesloten onderwerpen worden niet meer uitgevraagd; het leerlingprofiel gebruikt daarvoor neutrale waarden.
 - Schermanimaties respecteren verminderde beweging. De engine blijft onderwerpfilters ondersteunen voor een toekomstige databron, maar de leerling kiest deze niet meer.
@@ -85,11 +85,11 @@ python tests/browser.test.py
 
 De browsertest vereist het Python-pakket Playwright en Chromium op `/usr/bin/chromium` (aanwezig in deze cloudomgeving). Voor een andere installatie kun je dat pad aanpassen. Externe coververzoeken worden in deze test bewust geweigerd om te controleren dat de app bruikbaar blijft zonder deze diensten.
 
-Gevalideerd: 24 JavaScript-tests en 5 Python-importtests geslaagd, plus een volledige browserdoorloop zonder JavaScript-fouten. De vijf voorgeschreven profielen geven verschillende top-5's. De browsercontrole test interessevalidatie, keuzelimieten, neutrale keuzes, sliders, terugnavigatie, acht stappen, vijf kaarten, modal en Escape, feedback, nieuwe titels, sessieherstel en geen horizontale overflow bij 390, 768 en 1280 pixels. Verminderde beweging is eveneens getest.
+Gevalideerd: 24 JavaScript-tests en 7 Python-importtests geslaagd, plus een volledige browserdoorloop zonder JavaScript-fouten. De vijf voorgeschreven profielen geven verschillende top-5's. De browsercontrole test interessevalidatie, keuzelimieten, neutrale keuzes, sliders, terugnavigatie, acht stappen, vijf kaarten, modal en Escape, feedback, nieuwe titels, sessieherstel en geen horizontale overflow bij 390, 768 en 1280 pixels. Verminderde beweging is eveneens getest.
 
 ## Eerste Aura-koppeling — openbare catalogussnapshot
 
-De app gebruikt nu `data/aura-catalog.js`: 17 bevestigde titels uit de Bogerman-catalogus, waarvan er 15 aanwezig waren bij de controle. Dit is een beperkte selectie van de 98 eerder verrijkte testtitels, niet de volledige mediatheek. Een titel wordt alleen opgenomen wanneer titel én auteur exact overeenkomen, het materiaal een Nederlandstalig boek is en er openbare exemplaarinformatie is.
+De app gebruikt nu `data/aura-catalog.js`: 45 bevestigde titels uit de Bogerman-catalogus, waarvan er 40 aanwezig waren bij de controle op 8 oktober 2026. Dit is een beperkte selectie van de 98 eerder verrijkte testtitels, niet de volledige mediatheek. Een titel wordt alleen opgenomen wanneer titel en hoofdauteur overeenkomen, het materiaal een boek is en er openbare exemplaarinformatie is. Vertalerscredits en de editieaanduiding “filmeditie” worden bij die vergelijking genegeerd; andere ondertitels blijven onderscheidend. Een expliciet andere taal wordt uitgesloten. Een leeg taalveld blijft onbekend (`language: ""`), zodat geen Nederlandse taalregistratie wordt verzonnen.
 
 `bookRepository.getBooks()` combineert de bevestigde catalogusrecords met de redactionele leeskenmerken. Onbevestigde testtitels worden niet aanbevolen. ISBN (indien uit de officiële cover herkenbaar), locatie, exemplaarstatus en cover komen uit de catalogus; niveau, pagina-indicatie, themascores en mini-samenvattingen blijven redactionele indicaties. Aura's eigen niveau wordt apart als `catalogLevel` bewaard.
 

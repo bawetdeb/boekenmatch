@@ -20,11 +20,12 @@ with sync_playwright() as p:
         page.locator('#next').click()
     page.locator('#next').click()
     assert 'Kies minstens' in page.locator('#validation').inner_text()
-    for value in ['voetbal', 'Formule 1', 'fitness', 'vechtsport', 'basketbal', 'skateboarden']:
+    for value in ['voetbal', 'Formule 1', 'fitness', 'vechtsport', 'basketbal', 'skateboarden', 'wintersport', 'andere sport', 'games', 'social media', 'YouTube', 'films']:
         page.locator(f'[data-value="{value}"]').click()
-    page.locator('[data-value="wintersport"]').click()
-    assert 'maximaal 6' in page.locator('#validation').inner_text()
-    assert page.locator('[data-value="wintersport"]').get_attribute('aria-pressed') == 'false'
+    assert page.evaluate('appState.profile.interests.length') == 12
+    page.locator('[data-value="series"]').click()
+    assert 'maximaal 12' in page.locator('#validation').inner_text()
+    assert page.locator('[data-value="series"]').get_attribute('aria-pressed') == 'false'
     page.locator('#primary').select_option(label='voetbal')
     page.locator('#back').click()
     page.locator('[data-value="any"]').click()
@@ -85,5 +86,5 @@ with sync_playwright() as p:
     page.reload()
     assert page.evaluate('Object.keys(appState.feedback).length') == 1
     assert not errors, errors
-    print('PASS: 8 steps, school years 1–4, progress/back, 6-interest and 5-theme limits, neutral choices, sliders, removed preferences neutral, modal, feedback, unseen alternatives, responsive sizes, reduced motion, session reload; no JavaScript errors')
+    print('PASS: 8 steps, school years 1–4, progress/back, 12-interest and 5-theme limits, neutral choices, sliders, removed preferences neutral, modal, feedback, unseen alternatives, responsive sizes, reduced motion, session reload; no JavaScript errors')
     browser.close()

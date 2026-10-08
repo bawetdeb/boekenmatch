@@ -27,9 +27,15 @@ class DOM(HTMLParser):
   if self.stack[-1].tag not in ['script','style']:self.stack[-1].children.append(d)
 def normal(s):return re.sub(r'[^a-z0-9]','',unicodedata.normalize('NFKD',s).encode('ascii','ignore').decode().lower())
 def author(s):
+ # Aura appends translator credits after a semicolon.
+ s=s.split(';',1)[0].strip()
  if ',' in s:
   last,first=s.split(',',1);s=first+' '+last
  return normal(s)
+def same_title(actual,expected):
+ # Only this edition label is interchangeable; sequel subtitles remain distinct.
+ actual=re.sub(r'\s*;\s*filmeditie\s*$', '', actual, flags=re.I)
+ return normal(actual)==normal(expected)
 local=threading.local()
 def fetch(path):
  if not hasattr(local,'op'):
@@ -45,19 +51,20 @@ def lookup(book):
   link=next((x for x in row.all() if 'HLTIT' in x.attrs.get('id','')),None)
   who=next((x for x in row.all() if x.klass('author')),None)
   values=[x.text() for x in row.all() if x.klass('value')]
-  if link and who and normal(link.text())==normal(book['title']) and author(who.text())==author(book['author']) and 'Boek' in values:
+  if link and who and same_title(link.text(),book['title']) and author(who.text())==author(book['author']) and 'Boek' in values:
    candidates.append(link.attrs['href'])
  records=[]
  for path in candidates[:3]:
   doc=fetch(path);title=next((x.text() for x in doc.all() if x.klass('titel')),'');who=next((x.text() for x in doc.all() if x.klass('dtaut')),'')
-  if normal(title)!=normal(book['title']) or author(who)!=author(book['author']):continue
+  if not same_title(title,book['title']) or author(who)!=author(book['author']):continue
   fields={}
   for row in doc.all():
    if row.tag=='tr':
     key=next((x.text() for x in row.all() if x.klass('ajdgeg2')),None)
     value=next((x.text() for x in row.all() if x.klass('ajdgeg3')),None)
     if key:fields[key]=value
-  if fields.get('Taal')!='Nederlands':continue
+  language=(fields.get('Taal') or '').strip()
+  if language and language!='Nederlands':continue
   copies=[]
   for row in doc.all():
    if row.tag!='tr':continue
@@ -75,8 +82,8 @@ def lookup(book):
    landing=DOM(response.read().decode('utf-8-sig')).root
   direct_title=next((x.text() for x in landing.all() if x.klass('titel')),'')
   direct_author=next((x.text() for x in landing.all() if x.klass('dtaut')),'')
-  if normal(direct_title)!=normal(book['title']) or author(direct_author)!=author(book['author']):direct=''
-  records.append({'id':book['id'],'title':title,'author':who,'isbn':isbn_match.group(1) if isbn_match else '', 'auraId':record_id,'auraUrl':direct,'coverUrl':urljoin(BASE,cover) if cover and 'nietgevonden' not in cover else '', 'copies':copies,'available':any(c['status'].strip().lower()=='aanwezig' for c in copies),'location':'; '.join(c['branch']+' · '+c['location'] for c in copies),'language':'nl','catalogLevel':fields.get('Niveau','')})
+  if not same_title(direct_title,book['title']) or author(direct_author)!=author(book['author']):direct=''
+  records.append({'id':book['id'],'title':title,'author':who,'isbn':isbn_match.group(1) if isbn_match else '', 'auraId':record_id,'auraUrl':direct,'coverUrl':urljoin(BASE,cover) if cover and 'nietgevonden' not in cover else '', 'copies':copies,'available':any(c['status'].strip().lower()=='aanwezig' for c in copies),'location':'; '.join(c['branch']+' · '+c['location'] for c in copies),'language':'nl' if language=='Nederlands' else '','catalogLevel':fields.get('Niveau','')})
  return next((r for r in records if r['available']),records[0] if records else None)
 
 def main():
